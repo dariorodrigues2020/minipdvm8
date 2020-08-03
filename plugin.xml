@@ -26,7 +26,7 @@
 	
 	<js-module src="www/minipdvm8.js" name="minipdvm8">
 		<clobbers target="plugin.minipdvm8" />
-		<clobbers ttarget="cordova.plugins.minipdvm8" />
+		<clobbers target="cordova.plugins.minipdvm8" />
 	</js-module>
 	
 	<platform name="android">
