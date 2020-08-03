@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<plugin id="cordova-plugin-printer-minipdvm8" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+	<name>minipdvm8</name>
+	
+	<description>
+        SDK para impressao da impressora mini pdv m8 elgin.
+    </description>
+
+    <repo>
+        https://github.com/dariorodrigues2020/minipdvm8.git
+    </repo>
+
+    <keywords>
+        print, printer, android, sdk, mini, pdv, m8
+    </keywords>
+
+    <license>Apache 2.0</license>
+
+    <author>Dario Rodrigues</author>
+
+    <!-- cordova -->
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+	
+	<js-module src="www/minipdvm8.js" name="Printer">
+		<clobbers target="plugin.minipdvm8" />
+		<clobbers ttarget="cordova.plugins.minipdvm8" />
+	</js-module>
+	
+	<platform name="android">
+		<framework src="src/android/build.gradle" custom="true" type="gradleReference"/>
+		
+		<lib-file src="src/android/e1-v1.0.3-release.aar"/>
+		<lib-file src="src/android/libsat-release.aar"/>
+		<lib-file src="src/android/minipdvm8.aar"/>
+		
+		<config-file parent="/*" target="res/xml/config.xml">
+			<feature name="minipdvm8">
+				<param name="android-package" value="cordova.plugin.printer.minipdvm8.minipdvm8" />
+			</feature>
+		</config-file>
+		
+		<config-file parent="/*" target="AndroidManifest.xml"></config-file>
+		
+		<source-file src="src/android/Printer.java" target-dir="src/cordova/plugin/printer/minipdvm8/minipdvm8" />
+	</platform>
+</plugin>

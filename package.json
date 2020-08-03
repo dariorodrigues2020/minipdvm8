@@ -1,0 +1,25 @@
+{
+  "name": "cordova-plugin-printer-minipdvm8",
+  "version": "0.0.1",
+  "description": "SDK para impressao da impressora mini pdv m8 elgin",
+  "cordova": {
+    "id": "cordova-plugin-printer-minipdvm8",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dariorodrigues2020/minipdvm8.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "Dario Rodrigues",
+  "license": "Apache License",
+  "bugs": {
+    "url": "https://github.com/dariorodrigues2020/minipdvm8/issues"
+  },
+  "homepage": "https://github.com/dariorodrigues2020/minipdvm8#readme"
+}
