@@ -81,10 +81,10 @@ public class minipdvm8 extends CordovaPlugin {
 					int r = Termica.ImpressaoTexto( text, position, style, size );					
 					Termica.FechaConexaoImpressora( );	
 					
-					callbackContext.success( r );
+					callbackContext.success( 'ImpressaoTexto retornou: ' + r );
 				} else
 				{
-					callbackContext.success( result );
+					callbackContext.success( 'AbreConexaoImpressora retornou: ' + result );
 				}
 			} catch ( Exception ex )
 			{
