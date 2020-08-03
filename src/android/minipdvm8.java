@@ -23,15 +23,15 @@ import java.util.Random;
 
 public class minipdvm8 extends CordovaPlugin {
     public boolean execute( String action, JSONArray args, CallbackContext callbackContext ) throws JSONException 
-    {
+	{
         if ( action.equals( "printText" ) ) 
-	{            
+		{            
             this.printText( args.getString( 0 ), callbackContext );
             return true;
         }
 		
-	if ( action.equals( "printQRCode" ) ) 
-	{            
+		if ( action.equals( "printQRCode" ) ) 
+		{            
             this.printQRCode( args.getString( 0 ), callbackContext );
             return true;
         }
@@ -39,62 +39,66 @@ public class minipdvm8 extends CordovaPlugin {
         return false;
     }
 	
-    private void printText( String args, CallbackContext callbackContext ) throws JSONException
-    {		
-	JSONObject json = new JSONObject( args );
+	private void printText( String args, CallbackContext callbackContext ) throws JSONException
+	{		
+		JSONObject json = new JSONObject( args );
 		
-	String text      = json.getString( "text"       );
-	String conection = json.getString( "conection"  );
-	String model     = json.getString( "model"      );
+		String text      = json.getString( "text"       );
+		String conection = json.getString( "conection"  );
+		String model     = json.getString( "model"      );
 		
-	int type      = Integer.parseInt( json.getString( "type"      ) );
-	int parameter = Integer.parseInt( json.getString( "parameter" ) );
-	int position  = Integer.parseInt( json.getString( "position"  ) );
-	int style     = Integer.parseInt( json.getString( "style"     ) );
-	int size      = Integer.parseInt( json.getString( "size"      ) );
-	int corte     = Integer.parseInt( json.getString( "corte"     ) );
-	int avanco    = Integer.parseInt( json.getString( "avanco"    ) );
+		int type      = Integer.parseInt( json.getString( "type"      ) );
+		int parameter = Integer.parseInt( json.getString( "parameter" ) );
+		int position  = Integer.parseInt( json.getString( "position"  ) );
+		int style     = Integer.parseInt( json.getString( "style"     ) );
+		int size      = Integer.parseInt( json.getString( "size"      ) );
+		int corte     = Integer.parseInt( json.getString( "corte"     ) );
+		int avanco    = Integer.parseInt( json.getString( "avanco"    ) );
 		
-	String OK = "ok";
+		String OK = "ok";
 		
         if ( text != null && text.length( ) > 0 ) 
-	{
-	    Thread t = new Thread( ) 
-	    {
-	        @Override
-	        public void run( ) 
 		{
-		    Termica.ImpressaoTexto( text, position, style, size );	
+			Thread t = new Thread( ) 
+			{
+				@Override
+				public void run( ) 
+				{
+					Termica.ImpressaoTexto( text, position, style, size );	
 
-		    if ( corte == 1 ) 
-		    {
-			Termica.Corte( avanco );
-		    }
+					if ( corte == 1 ) {
+						Termica.Corte( avanco );
+					} else if ( avanco > 0 ) 
+					{
+					   Termica.AvancaPapel( avanco );
+					}
 					
-		    Termica.FechaConexaoImpressora( );				   
-		}
-	    };
+					Termica.FechaConexaoImpressora( );				   
+				}
+			};
 			
-	    try 
-	    {
-		Termica.setContext( cordova.getActivity( ) );				
-		int result = Termica.AbreConexaoImpressora( type, model, conection, parameter );	
+			try 
+			{
+				Termica.setContext( cordova.getActivity( ) );	
 				
-		if ( result == 0 )
-		{
-		    t.start( );						
-		    callbackContext.success( OK );
-		} else
-		{
-		    callbackContext.error( result );
-		}
-	    } catch ( Exception ex )
-	    {
-		ex.printStackTrace( );
-		callbackContext.error( ex.getMessage( ) );
-	    }		
+				int result = Termica.AbreConexaoImpressora( type, model, conection, parameter );	
+				
+				if ( result == 0 )
+				{
+					t.start( );		
+					
+					callbackContext.success( OK );
+				} else
+				{
+					callbackContext.error( result );
+				}
+			} catch ( Exception ex )
+			{
+				ex.printStackTrace( );
+				callbackContext.error( ex.getMessage( ) );
+			}		
         } else 
-	{
+		{
             callbackContext.error( "Texto invalido para impressao." );
         }
     }
@@ -111,6 +115,10 @@ public class minipdvm8 extends CordovaPlugin {
 		int parameter = Integer.parseInt( json.getString( "parameter" ) );
 		int nivel     = Integer.parseInt( json.getString( "nivel"     ) );
 		int size      = Integer.parseInt( json.getString( "size"      ) );
+		int corte     = Integer.parseInt( json.getString( "corte"     ) );
+		int avanco    = Integer.parseInt( json.getString( "avanco"    ) );
+		
+		String OK = "ok";
 		
 		if ( text != null && text.length( ) > 0 ) 
 		{
@@ -119,7 +127,16 @@ public class minipdvm8 extends CordovaPlugin {
 				@Override
 				public void run( ) 
 				{
-				    
+				    Termica.ImpressaoQRCode( text, size, nivel );
+					
+					if ( corte == 1 ) {
+						Termica.Corte( avanco );
+					} else if ( avanco > 0 ) 
+					{
+					   Termica.AvancaPapel( avanco );
+					}
+					
+					Termica.FechaConexaoImpressora( );	
 				}
 			};
 			
@@ -131,15 +148,13 @@ public class minipdvm8 extends CordovaPlugin {
 
 				if ( result == 0 )
 				{					
-					int r = Termica.ImpressaoQRCode( text, size, nivel );
-					Termica.FechaConexaoImpressora( );	
-
-					callbackContext.success( r );	
+					t.start( );	
+					
+					callbackContext.success( OK );
 				} else
 				{
 					callbackContext.success( result );
 				}
-				//t.start( );
 			} catch ( Exception ex )
 			{
 				ex.printStackTrace( );
