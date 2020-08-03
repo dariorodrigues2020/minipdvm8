@@ -52,8 +52,10 @@ public class minipdvm8 extends CordovaPlugin {
 		int position  = Integer.parseInt( json.getString( "position"  ) );
 		int style     = Integer.parseInt( json.getString( "style"     ) );
 		int size      = Integer.parseInt( json.getString( "size"      ) );
+		int corte     = Integer.parseInt( json.getString( "corte"     ) );
+		int avanco    = Integer.parseInt( json.getString( "avanco"    ) );
 		
-		//String OK = "ok";
+		String OK = 'ok';
 		
         if ( text != null && text.length( ) > 0 ) 
 		{
@@ -62,29 +64,28 @@ public class minipdvm8 extends CordovaPlugin {
 				@Override
 				public void run( ) 
 				{
-				    Termica.AbreConexaoImpressora( type, model, conection, parameter );	
-					Termica.ImpressaoTexto( text, position, style, size );					
+					Termica.ImpressaoTexto( text, position, style, size );	
+
+					if ( corte == 1 ) {
+						Termica.Corte( avanco );
+					}
+					
 					Termica.FechaConexaoImpressora( );				   
 				}
 			};
 			
 			try 
 			{
-				//t.start( );
-				
-				Termica.setContext( cordova.getActivity( ) );
-				
+				Termica.setContext( cordova.getActivity( ) );				
 				int result = Termica.AbreConexaoImpressora( type, model, conection, parameter );	
 				
 				if ( result == 0 )
 				{
-					int r = Termica.ImpressaoTexto( text, position, style, size );					
-					Termica.FechaConexaoImpressora( );	
-					
-					callbackContext.success( 'ImpressaoTexto retornou: ' + r );
+					t.start( );						
+					callbackContext.success( OK );
 				} else
 				{
-					callbackContext.success( 'AbreConexaoImpressora retornou: ' + result );
+					callbackContext.error( result );
 				}
 			} catch ( Exception ex )
 			{
