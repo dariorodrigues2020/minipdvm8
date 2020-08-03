@@ -53,7 +53,7 @@ public class minipdvm8 extends CordovaPlugin {
 		int style     = Integer.parseInt( json.getString( "style"     ) );
 		int size      = Integer.parseInt( json.getString( "size"      ) );
 		
-		String OK = "ok";
+		//String OK = "ok";
 		
         if ( text != null && text.length( ) > 0 ) 
 		{
@@ -70,8 +70,20 @@ public class minipdvm8 extends CordovaPlugin {
 			
 			try 
 			{
-				t.start( );
-				callbackContext.success( OK );
+				//t.start( );
+				
+				int result = Termica.AbreConexaoImpressora( type, model, conection, parameter );	
+				
+				if ( result = 0 )
+				{
+					int r = Termica.ImpressaoTexto( text, position, style, size );					
+					Termica.FechaConexaoImpressora( );	
+					
+					callbackContext.success( r );
+				} else
+				{
+					callbackContext.success( result );
+				}
 			} catch ( Exception ex )
 			{
 				ex.printStackTrace( );
