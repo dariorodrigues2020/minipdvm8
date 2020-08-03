@@ -44,6 +44,6 @@
 		
 		<config-file parent="/*" target="AndroidManifest.xml"></config-file>
 		
-		<source-file src="src/android/Printer.java" target-dir="src/cordova/plugin/printer/minipdvm8/minipdvm8" />
+		<source-file src="src/android/minipdvm8.java" target-dir="src/cordova/plugin/printer/minipdvm8/minipdvm8" />
 	</platform>
 </plugin>
