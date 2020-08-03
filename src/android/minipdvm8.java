@@ -153,7 +153,7 @@ public class minipdvm8 extends CordovaPlugin {
 					callbackContext.success( OK );
 				} else
 				{
-					callbackContext.success( result );
+					callbackContext.error( result );
 				}
 			} catch ( Exception ex )
 			{
