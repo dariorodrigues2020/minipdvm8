@@ -72,6 +72,8 @@ public class minipdvm8 extends CordovaPlugin {
 			{
 				//t.start( );
 				
+				Termica.setContext( cordova.getActivity( ) );
+				
 				int result = Termica.AbreConexaoImpressora( type, model, conection, parameter );	
 				
 				if ( result == 0 )
@@ -121,6 +123,8 @@ public class minipdvm8 extends CordovaPlugin {
 			
 			try 
 			{
+				Termica.setContext( cordova.getActivity( ) );
+		
 				int result = Termica.AbreConexaoImpressora( type, model, conection, parameter );
 
 				if ( result == 0 )
