@@ -96,25 +96,32 @@ public class minipdvm8 extends CordovaPlugin {
 		int nivel     = Integer.parseInt( json.getString( "nivel"     ) );
 		int size      = Integer.parseInt( json.getString( "size"      ) );
 		
-		String OK = "ok";
-		
-        if ( text != null && text.length( ) > 0 ) 
+		if ( text != null && text.length( ) > 0 ) 
 		{
 			Thread t = new Thread( ) 
 			{
 				@Override
 				public void run( ) 
 				{
-				    Termica.AbreConexaoImpressora( type, model, conection, parameter );	
-					Termica.ImpressaoQRCode( text, size, nivel );
-					Termica.FechaConexaoImpressora( );				   
+				    
 				}
 			};
 			
 			try 
 			{
-				t.start( );
-				callbackContext.success( OK );
+				int result = Termica.AbreConexaoImpressora( type, model, conection, parameter );
+
+				if ( result = 0 )
+				{					
+					int r = Termica.ImpressaoQRCode( text, size, nivel );
+					Termica.FechaConexaoImpressora( );	
+
+					callbackContext.success( r );	
+				} else
+				{
+					callbackContext.success( result );
+				}
+				//t.start( );
 			} catch ( Exception ex )
 			{
 				ex.printStackTrace( );
