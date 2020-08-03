@@ -24,7 +24,7 @@
         <engine name="cordova" version=">=3.0.0" />
     </engines>
 	
-	<js-module src="www/minipdvm8.js" name="Printer">
+	<js-module src="www/minipdvm8.js" name="minipdvm8">
 		<clobbers target="plugin.minipdvm8" />
 		<clobbers ttarget="cordova.plugins.minipdvm8" />
 	</js-module>
