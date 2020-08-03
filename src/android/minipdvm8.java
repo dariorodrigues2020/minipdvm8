@@ -23,15 +23,15 @@ import java.util.Random;
 
 public class minipdvm8 extends CordovaPlugin {
     public boolean execute( String action, JSONArray args, CallbackContext callbackContext ) throws JSONException 
-	{
+    {
         if ( action.equals( "printText" ) ) 
-		{            
+	{            
             this.printText( args.getString( 0 ), callbackContext );
             return true;
         }
 		
-		if ( action.equals( "printQRCode" ) ) 
-		{            
+	if ( action.equals( "printQRCode" ) ) 
+	{            
             this.printQRCode( args.getString( 0 ), callbackContext );
             return true;
         }
@@ -39,8 +39,8 @@ public class minipdvm8 extends CordovaPlugin {
         return false;
     }
 	
-	private void printText( String args, CallbackContext callbackContext ) throws JSONException
-	{		
+    private void printText( String args, CallbackContext callbackContext ) throws JSONException
+    {		
 		JSONObject json = new JSONObject( args );
 		
 		String text      = json.getString( "text"       );
