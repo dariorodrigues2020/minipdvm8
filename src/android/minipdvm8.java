@@ -74,7 +74,7 @@ public class minipdvm8 extends CordovaPlugin {
 				
 				int result = Termica.AbreConexaoImpressora( type, model, conection, parameter );	
 				
-				if ( result = 0 )
+				if ( result == 0 )
 				{
 					int r = Termica.ImpressaoTexto( text, position, style, size );					
 					Termica.FechaConexaoImpressora( );	
@@ -123,7 +123,7 @@ public class minipdvm8 extends CordovaPlugin {
 			{
 				int result = Termica.AbreConexaoImpressora( type, model, conection, parameter );
 
-				if ( result = 0 )
+				if ( result == 0 )
 				{					
 					int r = Termica.ImpressaoQRCode( text, size, nivel );
 					Termica.FechaConexaoImpressora( );	
