@@ -55,7 +55,7 @@ public class minipdvm8 extends CordovaPlugin {
 	int corte     = Integer.parseInt( json.getString( "corte"     ) );
 	int avanco    = Integer.parseInt( json.getString( "avanco"    ) );
 		
-	String OK = 'ok';
+	String OK = "ok";
 		
         if ( text != null && text.length( ) > 0 ) 
 	{
