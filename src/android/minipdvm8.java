@@ -41,59 +41,60 @@ public class minipdvm8 extends CordovaPlugin {
 	
     private void printText( String args, CallbackContext callbackContext ) throws JSONException
     {		
-		JSONObject json = new JSONObject( args );
+	JSONObject json = new JSONObject( args );
 		
-		String text      = json.getString( "text"       );
-		String conection = json.getString( "conection"  );
-		String model     = json.getString( "model"      );
+	String text      = json.getString( "text"       );
+	String conection = json.getString( "conection"  );
+	String model     = json.getString( "model"      );
 		
-		int type      = Integer.parseInt( json.getString( "type"      ) );
-		int parameter = Integer.parseInt( json.getString( "parameter" ) );
-		int position  = Integer.parseInt( json.getString( "position"  ) );
-		int style     = Integer.parseInt( json.getString( "style"     ) );
-		int size      = Integer.parseInt( json.getString( "size"      ) );
-		int corte     = Integer.parseInt( json.getString( "corte"     ) );
-		int avanco    = Integer.parseInt( json.getString( "avanco"    ) );
+	int type      = Integer.parseInt( json.getString( "type"      ) );
+	int parameter = Integer.parseInt( json.getString( "parameter" ) );
+	int position  = Integer.parseInt( json.getString( "position"  ) );
+	int style     = Integer.parseInt( json.getString( "style"     ) );
+	int size      = Integer.parseInt( json.getString( "size"      ) );
+	int corte     = Integer.parseInt( json.getString( "corte"     ) );
+	int avanco    = Integer.parseInt( json.getString( "avanco"    ) );
 		
-		String OK = 'ok';
+	String OK = 'ok';
 		
         if ( text != null && text.length( ) > 0 ) 
+	{
+	    Thread t = new Thread( ) 
+	    {
+	        @Override
+	        public void run( ) 
 		{
-			Thread t = new Thread( ) 
-			{
-				@Override
-				public void run( ) 
-				{
-					Termica.ImpressaoTexto( text, position, style, size );	
+		    Termica.ImpressaoTexto( text, position, style, size );	
 
-					if ( corte == 1 ) {
-						Termica.Corte( avanco );
-					}
+		    if ( corte == 1 ) 
+		    {
+			Termica.Corte( avanco );
+		    }
 					
-					Termica.FechaConexaoImpressora( );				   
-				}
-			};
+		    Termica.FechaConexaoImpressora( );				   
+		}
+	    };
 			
-			try 
-			{
-				Termica.setContext( cordova.getActivity( ) );				
-				int result = Termica.AbreConexaoImpressora( type, model, conection, parameter );	
+	    try 
+	    {
+		Termica.setContext( cordova.getActivity( ) );				
+		int result = Termica.AbreConexaoImpressora( type, model, conection, parameter );	
 				
-				if ( result == 0 )
-				{
-					t.start( );						
-					callbackContext.success( OK );
-				} else
-				{
-					callbackContext.error( result );
-				}
-			} catch ( Exception ex )
-			{
-				ex.printStackTrace( );
-				callbackContext.error( ex.getMessage( ) );
-			}		
-        } else 
+		if ( result == 0 )
 		{
+		    t.start( );						
+		    callbackContext.success( OK );
+		} else
+		{
+		    callbackContext.error( result );
+		}
+	    } catch ( Exception ex )
+	    {
+		ex.printStackTrace( );
+		callbackContext.error( ex.getMessage( ) );
+	    }		
+        } else 
+	{
             callbackContext.error( "Texto invalido para impressao." );
         }
     }
