@@ -19,3 +19,8 @@ exports.printQRCode = function ( arg0, success, error )
 {
     exec( success, error, 'minipdvm8', 'printQRCode', [ arg0 ] );
 };
+
+exports.printTextBema = function ( arg0, success, error ) 
+{
+    exec( success, error, 'minipdvm8', 'printTextBema', [ arg0 ] );
+};
