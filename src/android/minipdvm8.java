@@ -97,9 +97,13 @@ public class minipdvm8 extends CordovaPlugin {
 			
 			try 
 			{				
-				t.start( );		
-					
-				callbackContext.success( OK );
+				//t.start( );	
+				
+				//callbackContext.success( OK );
+				Printer printer = new Printer( );					
+				printer.FindPrinter( );
+				String sts = printer.GetPrinterStatus();
+				callbackContext.error( sts );				
 			} catch ( Exception ex )
 			{
 				ex.printStackTrace( );
