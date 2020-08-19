@@ -24,6 +24,8 @@ import java.util.Random;
 import br.com.bematech.android.usb.mp4200th.Printer;
 
 public class minipdvm8 extends CordovaPlugin {
+	Printer printer = null;
+	
 	public boolean execute( String action, JSONArray args, CallbackContext callbackContext ) throws JSONException 
 	{
 		if ( action.equals( "open" ) ) 
@@ -50,8 +52,66 @@ public class minipdvm8 extends CordovaPlugin {
             return true;
         }
 		
+		if ( action.equals( "printTextBema" ) ) 
+		{            
+            this.printTextBema( args.getString( 0 ), callbackContext );
+            return true;
+        }
+		
         return false;
     }
+	
+	private void printTextBema( String args, CallbackContext callbackContext ) throws JSONException
+	{
+		JSONObject json = new JSONObject( args );
+		
+		String text   = json.getString( "text"   );
+		String text2  = json.getString( "text2"  );
+		String qrcode = json.getString( "qrcode" );
+		String OK     = "ok";
+		
+		if ( text != null && text.length( ) > 0 ) 
+		{
+			Thread t = new Thread( ) 
+			{
+				@Override
+				public void run( ) 
+				{
+					printer = new Printer( );
+		
+					printer.FindPrinter( );
+					
+					printer.ImprimirTexto( text );
+					
+					if ( qrcode != null && qrcode.length( ) > 0 ) 
+					{
+						printer.ImprimirQRCode( qrcode );
+					}
+					
+					if ( text2 != null && text2.length( ) > 0 ) 
+					{
+						printer.ImprimirTexto( text2 );
+					}
+					
+					printer.CortarTotal( );
+				}
+			};
+			
+			try 
+			{				
+				t.start( );		
+					
+				callbackContext.success( OK );
+			} catch ( Exception ex )
+			{
+				ex.printStackTrace( );
+				callbackContext.error( ex.getMessage( ) );
+			}		
+        } else 
+		{
+            callbackContext.error( "Texto invalido para impressao." );
+        }
+	}
 	
 	private void open( String args, CallbackContext callbackContext ) throws JSONException
 	{		
