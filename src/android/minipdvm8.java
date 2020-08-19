@@ -85,7 +85,9 @@ public class minipdvm8 extends CordovaPlugin {
 		int corte  = Integer.parseInt( json.getString( "corte"  ) );
 		int avanco = Integer.parseInt( json.getString( "avanco" ) );		
 		
-		String OK = "ok";	
+		String OK = "ok";
+
+		Termica.setContext( cordova.getActivity( ) );	
 		
 		if ( corte == 1 ) {
 			Termica.Corte( avanco );
@@ -130,12 +132,14 @@ public class minipdvm8 extends CordovaPlugin {
 				@Override
 				public void run( ) 
 				{
+					Termica.setContext( cordova.getActivity( ) );
+					Termica.ImpressaoTexto( text, position, style, size );
+
 					if ( qrcode != null && qrcode.length( ) > 0 ) 
 					{
+						Termica.setContext( cordova.getActivity( ) );
 						Termica.ImpressaoQRCode( qrcode, sizeCode, nivel );
-					}
-					
-					Termica.ImpressaoTexto( text, position, style, size );	
+					}		
 					
 					if ( fecha == 1 )
 					{
