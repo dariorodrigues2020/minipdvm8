@@ -79,7 +79,7 @@ public class minipdvm8 extends CordovaPlugin {
 					
 					printer.FindPrinter( );
 					
-					printer.ImprimirTexto( text );
+					/*printer.ImprimirTexto( text );
 					
 					if ( qrcode != null && qrcode.length( ) > 0 ) 
 					{
@@ -91,7 +91,7 @@ public class minipdvm8 extends CordovaPlugin {
 						printer.ImprimirTexto( text2 );
 					}
 					
-					printer.CortarTotal( );
+					printer.CortarTotal( );*/
 				}
 			};
 			
