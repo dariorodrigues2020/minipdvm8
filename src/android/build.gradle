@@ -9,6 +9,7 @@ dependencies {
     compile(name:'e1-v1.0.3-release', ext:'aar')
 	compile(name:'libsat-release', ext:'aar')
 	compile(name:'minipdvm8', ext:'aar')
+	compile(name:'BemaLibAndroid-v1.0.0', ext:'aar')
 	compile("com.android.support:appcompat-v7:22.2.0")
 }
 

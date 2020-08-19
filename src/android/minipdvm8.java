@@ -21,8 +21,10 @@ import com.elgin.e1.Servico.ServicoE1;
 
 import java.util.Random;
 
+import br.com.bematech.android.usb.mp4200th.Printer;
+
 public class minipdvm8 extends CordovaPlugin {
-    public boolean execute( String action, JSONArray args, CallbackContext callbackContext ) throws JSONException 
+	public boolean execute( String action, JSONArray args, CallbackContext callbackContext ) throws JSONException 
 	{
 		if ( action.equals( "open" ) ) 
 		{            
@@ -64,9 +66,9 @@ public class minipdvm8 extends CordovaPlugin {
 		String OK = "ok";
 		
 		Termica.setContext( cordova.getActivity( ) );	
-				
-		int result = Termica.AbreConexaoImpressora( type, model, conection, parameter );	
 		
+		int result = Termica.AbreConexaoImpressora( type, model, conection, parameter );	
+				
 		if ( result == 0 )
 		{
 			callbackContext.success( OK );
@@ -107,11 +109,14 @@ public class minipdvm8 extends CordovaPlugin {
 	{		
 		JSONObject json = new JSONObject( args );
 		
-		String text = json.getString( "text" );
+		String text   = json.getString( "text"   );
+		String qrcode = json.getString( "qrcode" );
 		
 		int position = Integer.parseInt( json.getString( "position" ) );
 		int style    = Integer.parseInt( json.getString( "style"    ) );
 		int size     = Integer.parseInt( json.getString( "size"     ) );
+		int nivel    = Integer.parseInt( json.getString( "nivel"    ) );
+		int sizeCode = Integer.parseInt( json.getString( "sizeCode" ) );
 		
 		String OK = "ok";
 		
@@ -122,7 +127,12 @@ public class minipdvm8 extends CordovaPlugin {
 				@Override
 				public void run( ) 
 				{
-					Termica.ImpressaoTexto( text, position, style, size );					   
+					Termica.ImpressaoTexto( text, position, style, size );	
+
+					if ( qrcode != '' )
+					{
+						Termica.ImpressaoQRCode( qrcode, sizeCode, nivel );
+					}
 				}
 			};
 			
