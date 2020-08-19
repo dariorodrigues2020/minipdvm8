@@ -117,6 +117,9 @@ public class minipdvm8 extends CordovaPlugin {
 		int size     = Integer.parseInt( json.getString( "size"     ) );
 		int nivel    = Integer.parseInt( json.getString( "nivel"    ) );
 		int sizeCode = Integer.parseInt( json.getString( "sizeCode" ) );
+		int fecha    = Integer.parseInt( json.getString( "fecha"    ) );
+		int corte    = Integer.parseInt( json.getString( "corte"    ) );
+		int avanco   = Integer.parseInt( json.getString( "avanco"   ) );
 		
 		String OK = "ok";
 		
@@ -132,6 +135,18 @@ public class minipdvm8 extends CordovaPlugin {
 					if ( qrcode != null && qrcode.length( ) > 0 ) 
 					{
 						Termica.ImpressaoQRCode( qrcode, sizeCode, nivel );
+					}
+					
+					if ( fecha == 1 )
+					{
+						if ( corte == 1 ) {
+							Termica.Corte( avanco );
+						} else if ( avanco > 0 ) 
+						{
+						   Termica.AvancaPapel( avanco );
+						}
+								
+						Termica.FechaConexaoImpressora( );
 					}
 				}
 			};
@@ -158,8 +173,11 @@ public class minipdvm8 extends CordovaPlugin {
 		
 		String text = json.getString( "text" );
 		
-		int nivel = Integer.parseInt( json.getString( "nivel"     ) );
-		int size  = Integer.parseInt( json.getString( "size"      ) );
+		int nivel  = Integer.parseInt( json.getString( "nivel"  ) );
+		int size   = Integer.parseInt( json.getString( "size"   ) );
+		int fecha  = Integer.parseInt( json.getString( "fecha"  ) );
+		int corte  = Integer.parseInt( json.getString( "corte"  ) );
+		int avanco = Integer.parseInt( json.getString( "avanco" ) );
 		
 		String OK = "ok";
 		
@@ -170,7 +188,19 @@ public class minipdvm8 extends CordovaPlugin {
 				@Override
 				public void run( ) 
 				{
-				    Termica.ImpressaoQRCode( text, size, nivel );	
+				    Termica.ImpressaoQRCode( text, size, nivel );
+
+					if ( fecha == 1 )
+					{
+						if ( corte == 1 ) {
+							Termica.Corte( avanco );
+						} else if ( avanco > 0 ) 
+						{
+						   Termica.AvancaPapel( avanco );
+						}
+								
+						Termica.FechaConexaoImpressora( );
+					}					
 				}
 			};
 			
