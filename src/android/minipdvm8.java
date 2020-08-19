@@ -24,8 +24,6 @@ import java.util.Random;
 import br.com.bematech.android.usb.mp4200th.Printer;
 
 public class minipdvm8 extends CordovaPlugin {
-	Printer printer = null;
-	
 	public boolean execute( String action, JSONArray args, CallbackContext callbackContext ) throws JSONException 
 	{
 		if ( action.equals( "open" ) ) 
@@ -77,8 +75,8 @@ public class minipdvm8 extends CordovaPlugin {
 				@Override
 				public void run( ) 
 				{
-					printer = new Printer( );
-		
+					Printer printer = new Printer( );
+					
 					printer.FindPrinter( );
 					
 					printer.ImprimirTexto( text );
@@ -252,6 +250,8 @@ public class minipdvm8 extends CordovaPlugin {
 				@Override
 				public void run( ) 
 				{
+					Termica.setContext( cordova.getActivity( ) );
+					Termica.AvancaPapel( 1 );
 				    Termica.ImpressaoQRCode( text, size, nivel );
 
 					if ( fecha == 1 )
