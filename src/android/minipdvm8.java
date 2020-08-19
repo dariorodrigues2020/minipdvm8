@@ -130,12 +130,12 @@ public class minipdvm8 extends CordovaPlugin {
 				@Override
 				public void run( ) 
 				{
-					Termica.ImpressaoTexto( text, position, style, size );	
-
 					if ( qrcode != null && qrcode.length( ) > 0 ) 
 					{
 						Termica.ImpressaoQRCode( qrcode, sizeCode, nivel );
 					}
+					
+					Termica.ImpressaoTexto( text, position, style, size );	
 					
 					if ( fecha == 1 )
 					{
