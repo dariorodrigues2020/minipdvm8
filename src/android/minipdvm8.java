@@ -97,6 +97,8 @@ public class minipdvm8 extends CordovaPlugin {
 		String mac    = json.getString( "mac"    );
 		String OK     = "ok";
 		
+		Printer printer = new Printer( cordova.getActivity( ), new NetworkPrinterInfo( PrinterModel.MP4200TH, ip, 9100, mac ) );
+		
 		if ( text != null && text.length( ) > 0 ) 
 		{
 			Thread t = new Thread( ) 
@@ -104,38 +106,42 @@ public class minipdvm8 extends CordovaPlugin {
 				@Override
 				public void run( ) 
 				{
-					/*Printer printer = new Printer( );
-					
-					printer.FindPrinter( );
-					
-					printer.ImprimirTexto( text );
+					printer.printText( text );
 					
 					if ( qrcode != null && qrcode.length( ) > 0 ) 
 					{
-						printer.ImprimirQRCode( qrcode );
+						Receipt receipt = new Receipt( 31 );
+						QRCode qrCode = new QRCode( qrcode );
+						Alignment alignment = Alignment.CENTER;
+						qrCode.setAlignment( alignment );
+						receipt.addBarcode( qrCode );
+						
+						printer.printReceipt( receipt );
 					}
 					
 					if ( text2 != null && text2.length( ) > 0 ) 
 					{
-						printer.ImprimirTexto( text2 );
+						printer.printText( text2 );
 					}
 					
-					printer.CortarTotal( );*/
+					printer.cutPaper( true );
 				}
 			};
 			
 			try 
 			{				
-				/*t.start( );		
-					
-				callbackContext.success( OK );*/
-				
-				Printer printer = new Printer( cordova.getActivity( ), new NetworkPrinterInfo( PrinterModel.MP4200TH, ip, 9100, mac ) );
-				
 				PrinterStatus status = printer.getStatus( );
-				String msg = "Status Impressora: ";
-				msg += status.name( );
-				callbackContext.error( msg );
+				
+				if ( status.name( ) == 'PRINTER_OK' )
+				{
+					t.start( );		
+					
+					callbackContext.success( OK );
+				} else
+				{
+					String msg = "Status Impressora: " + status.name( );
+					callbackContext.error( msg );
+				}
 			} catch ( Exception ex )
 			{
 				ex.printStackTrace( );
