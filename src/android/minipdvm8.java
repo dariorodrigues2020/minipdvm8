@@ -106,6 +106,18 @@ public class minipdvm8 extends CordovaPlugin {
 				@Override
 				public void run( ) 
 				{
+					
+				}
+			};
+			
+			try 
+			{				
+				PrinterStatus status = printer.getStatus( );
+				String msg           =  status.name( );
+				
+				if ( status.name( ) == "PRINTER_OK" )
+				{					
+					//t.start( );
 					Alignment alignmentLeft = Alignment.LEFT;
 					
 					FormattedText formattedText = new FormattedText( text );
@@ -149,17 +161,6 @@ public class minipdvm8 extends CordovaPlugin {
 					}
 					
 					printer.cutPaper( true );
-				}
-			};
-			
-			try 
-			{				
-				PrinterStatus status = printer.getStatus( );
-				String msg           =  status.name( );
-				
-				if ( status.name( ) == "PRINTER_OK" )
-				{
-					t.start( );		
 					
 					callbackContext.success( OK );
 				} else
