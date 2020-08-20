@@ -98,6 +98,8 @@ public class minipdvm8 extends CordovaPlugin {
 		String OK     = "ok";
 		
 		int qrCodeSize = Integer.parseInt( json.getString( "qrCodeSize" ) );
+		int qrCodeH    = Integer.parseInt( json.getString( "qrCodeH"    ) );
+		int qrCodeW    = Integer.parseInt( json.getString( "qrCodeW"    ) );
 		
 		if ( text != null && text.length( ) > 0 ) 
 		{
@@ -129,9 +131,13 @@ public class minipdvm8 extends CordovaPlugin {
 						Receipt receipt = new Receipt( qrCodeSize );
 						QRCode qrCode = new QRCode( qrcode );
 						Alignment alignmentCenter = Alignment.CENTER;
-						qrCode.setAlignment( alignmentCenter );
-						receipt.addBarcode( qrCode );
 						
+						qrCode.setAlignment( alignmentCenter );
+						qrCode.setHeight( qrCodeH );
+						qrCode.setWidth( qrCodeW );
+						qrCode.toPrint( );
+						
+						receipt.addBarcode( qrCode );						
 						printer.printReceipt( receipt );
 					}
 					
