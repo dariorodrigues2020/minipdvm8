@@ -50,8 +50,6 @@ import br.com.bematech.android.miniprinter.barcode.UPCA;
 import br.com.bematech.android.miniprinter.barcode.UPCE;
 import br.com.bematech.android.miniprinter.exception.ConnectionException;
 
-import static br.com.bematech.android.sample.miniprinter.R.id.rbAlignmentCenter;
-
 public class minipdvm8 extends CordovaPlugin {
 	public boolean execute( String action, JSONArray args, CallbackContext callbackContext ) throws JSONException 
 	{
