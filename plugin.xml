@@ -36,6 +36,7 @@
 		<lib-file src="src/android/libsat-release.aar"/>
 		<lib-file src="src/android/minipdvm8.aar"/>
 		<lib-file src="src/android/BemaLibAndroid-v1.0.0.aar"/>
+		<lib-file src="src/android/BemaMiniprinterAndroidLib-v1.0.2.aar"/>
 		
 		<config-file parent="/*" target="res/xml/config.xml">
 			<feature name="minipdvm8">
