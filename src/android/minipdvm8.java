@@ -106,14 +106,27 @@ public class minipdvm8 extends CordovaPlugin {
 				@Override
 				public void run( ) 
 				{
-					printer.printText( text );
+					Alignment alignmentLeft = Alignment.LEFT;
+					
+					FormattedText formattedText = new FormattedText( text );
+					formattedText.setBoldMode( false );
+					formattedText.setCondensedMode( false );
+					formattedText.setDoubleHeightMode( false );
+					formattedText.setDoubleWidthMode( false );
+					formattedText.setItalicMode( false );
+					formattedText.setUnderlineMode( false );
+					formattedText.setSubscriptMode( false );
+					formattedText.setSuperscriptMode( false );
+					formattedText.setAlignment( alignmentLeft );
+					
+					printer.printText( formattedText );
 					
 					if ( qrcode != null && qrcode.length( ) > 0 ) 
 					{
 						Receipt receipt = new Receipt( 31 );
 						QRCode qrCode = new QRCode( qrcode );
-						Alignment alignment = Alignment.CENTER;
-						qrCode.setAlignment( alignment );
+						Alignment alignmentCenter = Alignment.CENTER;
+						qrCode.setAlignment( alignmentCenter );
 						receipt.addBarcode( qrCode );
 						
 						printer.printReceipt( receipt );
@@ -121,7 +134,18 @@ public class minipdvm8 extends CordovaPlugin {
 					
 					if ( text2 != null && text2.length( ) > 0 ) 
 					{
-						printer.printText( text2 );
+						FormattedText formattedText = new FormattedText( text2 );
+						formattedText.setBoldMode( false );
+						formattedText.setCondensedMode( false );
+						formattedText.setDoubleHeightMode( false );
+						formattedText.setDoubleWidthMode( false );
+						formattedText.setItalicMode( false );
+						formattedText.setUnderlineMode( false );
+						formattedText.setSubscriptMode( false );
+						formattedText.setSuperscriptMode( false );
+						formattedText.setAlignment( alignmentLeft );
+						
+						printer.printText( formattedText );
 					}
 					
 					printer.cutPaper( true );
