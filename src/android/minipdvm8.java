@@ -131,16 +131,16 @@ public class minipdvm8 extends CordovaPlugin {
 			try 
 			{				
 				PrinterStatus status = printer.getStatus( );
+				String msg           =  status.name( );
 				
-				if ( status.name( ) == 'PRINTER_OK' )
+				if ( status.name( ) == "PRINTER_OK" )
 				{
 					t.start( );		
 					
 					callbackContext.success( OK );
 				} else
 				{
-					String msg = "Status Impressora: " + status.name( );
-					callbackContext.error( msg );
+					callbackContext.error( "Status Impressora: " + msg );
 				}
 			} catch ( Exception ex )
 			{
