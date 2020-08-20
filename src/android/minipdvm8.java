@@ -21,7 +21,36 @@ import com.elgin.e1.Servico.ServicoE1;
 
 import java.util.Random;
 
-import br.com.bematech.android.usb.mp4200th.Printer;
+import br.com.bematech.android.miniprinter.Alignment;
+import br.com.bematech.android.miniprinter.BitmapConverter;
+import br.com.bematech.android.miniprinter.FormattedText;
+import br.com.bematech.android.miniprinter.LineFeed;
+import br.com.bematech.android.miniprinter.LineThickness;
+import br.com.bematech.android.miniprinter.NetworkPrinterInfo;
+import br.com.bematech.android.miniprinter.PrintedBitmap;
+import br.com.bematech.android.miniprinter.Printer;
+import br.com.bematech.android.miniprinter.PrinterCommands;
+import br.com.bematech.android.miniprinter.PrinterModel;
+import br.com.bematech.android.miniprinter.PrinterStatus;
+import br.com.bematech.android.miniprinter.Receipt;
+import br.com.bematech.android.miniprinter.SearchPrinter;
+import br.com.bematech.android.miniprinter.barcode.CODE128;
+import br.com.bematech.android.miniprinter.barcode.CODE39;
+import br.com.bematech.android.miniprinter.barcode.CODE93;
+import br.com.bematech.android.miniprinter.barcode.CODEBAR;
+import br.com.bematech.android.miniprinter.barcode.EAN13;
+import br.com.bematech.android.miniprinter.barcode.EAN8;
+import br.com.bematech.android.miniprinter.barcode.ISBN;
+import br.com.bematech.android.miniprinter.barcode.ITF;
+import br.com.bematech.android.miniprinter.barcode.MSI;
+import br.com.bematech.android.miniprinter.barcode.PDF417;
+import br.com.bematech.android.miniprinter.barcode.PLESSEY;
+import br.com.bematech.android.miniprinter.barcode.QRCode;
+import br.com.bematech.android.miniprinter.barcode.UPCA;
+import br.com.bematech.android.miniprinter.barcode.UPCE;
+import br.com.bematech.android.miniprinter.exception.ConnectionException;
+
+import static br.com.bematech.android.sample.miniprinter.R.id.rbAlignmentCenter;
 
 public class minipdvm8 extends CordovaPlugin {
 	public boolean execute( String action, JSONArray args, CallbackContext callbackContext ) throws JSONException 
@@ -66,6 +95,8 @@ public class minipdvm8 extends CordovaPlugin {
 		String text   = json.getString( "text"   );
 		String text2  = json.getString( "text2"  );
 		String qrcode = json.getString( "qrcode" );
+		String ip     = json.getString( "ip"     );
+		String mac    = json.getString( "mac"    );
 		String OK     = "ok";
 		
 		if ( text != null && text.length( ) > 0 ) 
@@ -75,13 +106,13 @@ public class minipdvm8 extends CordovaPlugin {
 				@Override
 				public void run( ) 
 				{
-					Printer printer = new Printer( );
+					/*Printer printer = new Printer( );
 					
 					printer.FindPrinter( );
 					
 					printer.ImprimirTexto( text );
 					
-					/*if ( qrcode != null && qrcode.length( ) > 0 ) 
+					if ( qrcode != null && qrcode.length( ) > 0 ) 
 					{
 						printer.ImprimirQRCode( qrcode );
 					}
@@ -97,13 +128,16 @@ public class minipdvm8 extends CordovaPlugin {
 			
 			try 
 			{				
-				//t.start( );	
+				/*t.start( );		
+					
+				callbackContext.success( OK );*/
 				
-				//callbackContext.success( OK );
-				Printer printer = new Printer( );					
-				printer.FindPrinter( );
-				String sts = printer.GetPrinterStatus();
-				callbackContext.error( sts );				
+				Printer printer = new Printer( cordova.getActivity( ), new NetworkPrinterInfo( PrinterModel.MP4200TH, ip, 9100, mac ) );
+				
+				PrinterStatus status = printer.getStatus( );
+				String msg = "Status Impressora: ";
+				msg += status.name( );
+				callbackContext.error( msg );
 			} catch ( Exception ex )
 			{
 				ex.printStackTrace( );
