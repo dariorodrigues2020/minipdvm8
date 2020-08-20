@@ -97,27 +97,18 @@ public class minipdvm8 extends CordovaPlugin {
 		String mac    = json.getString( "mac"    );
 		String OK     = "ok";
 		
-		Printer printer = new Printer( cordova.getActivity( ), new NetworkPrinterInfo( PrinterModel.MP4200TH, ip, 9100, mac ) );
+		int qrCodeSize = Integer.parseInt( json.getString( "qrCodeSize" ) );
 		
 		if ( text != null && text.length( ) > 0 ) 
 		{
-			Thread t = new Thread( ) 
-			{
-				@Override
-				public void run( ) 
-				{
-					
-				}
-			};
-			
 			try 
-			{				
+			{
+				Printer printer      = new Printer( cordova.getActivity( ), new NetworkPrinterInfo( PrinterModel.MP4200TH, ip, 9100, mac ) );				
 				PrinterStatus status = printer.getStatus( );
 				String msg           =  status.name( );
 				
 				if ( status.name( ) == "PRINTER_OK" )
 				{					
-					//t.start( );
 					Alignment alignmentLeft = Alignment.LEFT;
 					
 					FormattedText formattedText = new FormattedText( text );
@@ -135,7 +126,7 @@ public class minipdvm8 extends CordovaPlugin {
 					
 					if ( qrcode != null && qrcode.length( ) > 0 ) 
 					{
-						Receipt receipt = new Receipt( 31 );
+						Receipt receipt = new Receipt( qrCodeSize );
 						QRCode qrCode = new QRCode( qrcode );
 						Alignment alignmentCenter = Alignment.CENTER;
 						qrCode.setAlignment( alignmentCenter );
