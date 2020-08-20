@@ -134,18 +134,18 @@ public class minipdvm8 extends CordovaPlugin {
 					
 					if ( text2 != null && text2.length( ) > 0 ) 
 					{
-						FormattedText formattedText = new FormattedText( text2 );
-						formattedText.setBoldMode( false );
-						formattedText.setCondensedMode( false );
-						formattedText.setDoubleHeightMode( false );
-						formattedText.setDoubleWidthMode( false );
-						formattedText.setItalicMode( false );
-						formattedText.setUnderlineMode( false );
-						formattedText.setSubscriptMode( false );
-						formattedText.setSuperscriptMode( false );
-						formattedText.setAlignment( alignmentLeft );
+						FormattedText formattedText2 = new FormattedText( text2 );
+						formattedText2.setBoldMode( false );
+						formattedText2.setCondensedMode( false );
+						formattedText2.setDoubleHeightMode( false );
+						formattedText2.setDoubleWidthMode( false );
+						formattedText2.setItalicMode( false );
+						formattedText2.setUnderlineMode( false );
+						formattedText2.setSubscriptMode( false );
+						formattedText2.setSuperscriptMode( false );
+						formattedText2.setAlignment( alignmentLeft );
 						
-						printer.printText( formattedText );
+						printer.printText( formattedText2 );
 					}
 					
 					printer.cutPaper( true );
