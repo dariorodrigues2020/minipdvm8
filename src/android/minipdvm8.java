@@ -109,7 +109,7 @@ public class minipdvm8 extends CordovaPlugin {
 				PrinterStatus status = printer.getStatus( );
 				String msg           =  status.name( );
 				
-				if ( status.name( ) == "PRINTER_OK" )
+				if ( status.name( ) == "PRINTER_OK" || status.name( ) == "PAPER_NEAR_END" )
 				{					
 					Alignment alignmentLeft = Alignment.LEFT;
 					
@@ -315,8 +315,7 @@ public class minipdvm8 extends CordovaPlugin {
 				public void run( ) 
 				{
 					Termica.setContext( cordova.getActivity( ) );
-					Termica.AvancaPapel( 1 );
-				    Termica.ImpressaoQRCode( text, size, nivel );
+					Termica.ImpressaoQRCode( text, size, nivel );
 
 					if ( fecha == 1 )
 					{
